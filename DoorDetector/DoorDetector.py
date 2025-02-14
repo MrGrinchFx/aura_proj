@@ -1,9 +1,10 @@
 import cv2
 from ultralytics import YOLO
 
-WEIGHTS_PATH = "best.pt"
 
-VIDEO_SOURCE = "kemper.mp4"
+WEIGHTS_PATH = "DoorDetector\Kemperv8.pt"
+
+VIDEO_SOURCE = "DoorDetector\kemper.mp4"
 
 def main():
   model = YOLO(WEIGHTS_PATH)
@@ -16,7 +17,7 @@ def main():
       if success:
           frame = cv2.resize(frame, (840, 640))
 
-          results = model.track(frame, conf=0.50, persist = True, verbose=False)
+          results = model.track(frame, conf=0.50, persist = True, verbose=False, device=0)
 
           if results[0].boxes.id is not None:
               track_ids = results[0].boxes.id.int().cpu().tolist()
