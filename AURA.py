@@ -18,7 +18,7 @@ def get_frame():
 
 
 def main():
-    fourcc = cv2.VideoWriter_fourcc(*"XVID")
+    fourcc = cv2.VideoWriter_fourcc(*"mp4v")
     fps = 30.0
 
     out = cv2.VideoWriter("output_video.mp4", fourcc, fps, (SCREEN_SIZE))
