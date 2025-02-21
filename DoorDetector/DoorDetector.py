@@ -7,7 +7,7 @@ class DoorDetector:
 
   def __init__(self):
     self.weights = WEIGHTS_PATH
-    self.model = YOLO(WEIGHTS_PATH)
+    self.model = YOLO(WEIGHTS_PATH, task="detect")
 
   def inference(self, frame):
     output = {
