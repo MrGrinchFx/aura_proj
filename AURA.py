@@ -4,16 +4,17 @@ import pyautogui
 from DoorDetector.DoorDetector import DoorDetector
 
 SCREEN_SIZE = tuple(pyautogui.size())
+CAPTURE_REGION = (100, 100, 640, 480) # x, y, width, height
 
 
 def get_frame():
-        # Capture the screen
-        screenshot = pyautogui.screenshot()
-        frame = np.array(screenshot)
-        
-        # Convert RGB to BGR (OpenCV uses BGR)
-        frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
-        return frame
+    # Capture the screen
+    screenshot = pyautogui.screenshot(region=CAPTURE_REGION)
+    frame = np.array(screenshot)
+    
+    # Convert RGB to BGR (OpenCV uses BGR)
+    frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
+    return frame
 
 
 def main():
