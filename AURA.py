@@ -5,6 +5,7 @@ from DoorDetector.DoorDetector import DoorDetector
 
 SCREEN_SIZE = tuple(pyautogui.size())
 CAPTURE_REGION = (100, 100, 640, 480) # x, y, width, height
+OUTPUT_SIZE = (840, 640)
 
 
 def get_frame():
@@ -21,7 +22,7 @@ def main():
     fourcc = cv2.VideoWriter_fourcc(*"mp4v")
     fps = 30.0
 
-    out = cv2.VideoWriter("output_video.mp4", fourcc, fps, (SCREEN_SIZE))
+    out = cv2.VideoWriter("output_video_test.mp4", fourcc, fps, OUTPUT_SIZE)
 
     Detector = DoorDetector()
 
