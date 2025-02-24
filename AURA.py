@@ -2,10 +2,12 @@ import cv2
 import numpy as np
 import pyautogui
 from DoorDetector.DoorDetector import DoorDetector
+import time
 
 SCREEN_SIZE = tuple(pyautogui.size())
 CAPTURE_REGION = (100, 100, 640, 480) # x, y, width, height
 OUTPUT_SIZE = (840, 640)
+FPS = 12.0
 
 
 def get_frame():
@@ -20,30 +22,43 @@ def get_frame():
 
 def main():
     fourcc = cv2.VideoWriter_fourcc(*"mp4v")
-    fps = 30.0
 
-    out = cv2.VideoWriter("output_video_test.mp4", fourcc, fps, OUTPUT_SIZE)
+    out = cv2.VideoWriter("output_video.mp4", fourcc, FPS, OUTPUT_SIZE)
 
     Detector = DoorDetector()
 
-    while True:
-        frame = get_frame()
-        frame = cv2.resize(frame, (840, 640))
-        
-        inference = Detector.inference(frame)
+    # cap = cv2.VideoCapture("TestVideo.MOV")
 
-        for track_id, bbox in zip(inference["track_ids"], inference["bounding_boxes"]):
-            print(f"ID: {track_id}, BBox: {bbox}")
+    with open("yolo_output.txt", "w") as file:
+        start_time = time.time()
+        frame_count = 0
+        while True:
+        # while cap.isOpened():
+            frame = get_frame()
+            # success, frame = cap.read()
 
-        out.write(inference["annotation"])
-        
-        cv2.imshow("Screen Recording", inference["annotation"])
-        
+            frame = cv2.resize(frame, (840, 640))
+            
+            inference = Detector.inference(frame)
 
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
+            for track_id, bbox in zip(inference["track_ids"], inference["bounding_boxes"]):
+                file.write(f"{track_id} | {bbox} | ")
 
-    # make sure everything is closed when exited
+            file.write("\n")
+
+            out.write(frame)
+            
+            cv2.imshow("Screen Recording", inference["annotation"])
+
+            frame_count += 1
+            elapsed_time = time.time() - start_time
+            if elapsed_time > 0:
+                actual_fps = frame_count / elapsed_time
+                print(f"Actual FPS: {actual_fps:.2f}")
+
+            if cv2.waitKey(1) & 0xFF == ord('q'):
+                break
+
     cv2.destroyAllWindows()
     out.release()
 

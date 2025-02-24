@@ -1,7 +1,7 @@
 import cv2
 from ultralytics import YOLO
 
-WEIGHTS_PATH = "DoorDetector\Kemperv8.engine"
+WEIGHTS_PATH = "DoorDetector\Kemperv8.pt"
 
 class DoorDetector:
 
