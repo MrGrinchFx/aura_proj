@@ -3,21 +3,29 @@ import numpy as np
 import pyautogui
 from DoorDetector.DoorDetector import DoorDetector
 import time
+import mss
 
 SCREEN_SIZE = tuple(pyautogui.size())
-CAPTURE_REGION = (100, 100, 640, 480) # x, y, width, height
+# CAPTURE_REGION = (100, 100, 640, 480) # x, y, width, height
+CAPTURE_REGION = {"top": 200, "left": 60, "width": 1150, "height": 800}      
 OUTPUT_SIZE = (840, 640)
 FPS = 12.0
 
 
-def get_frame():
+def get_frame(sct):
     # Capture the screen
-    screenshot = pyautogui.screenshot(region=CAPTURE_REGION)
-    frame = np.array(screenshot)
+    # screenshot = pyautogui.screenshot(region=CAPTURE_REGION)
+    # frame = np.array(screenshot)
     
-    # Convert RGB to BGR (OpenCV uses BGR)
-    frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
-    return frame
+    # # Convert RGB to BGR (OpenCV uses BGR)
+    # frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
+
+    # return frame
+
+    screenshot = sct.grab(CAPTURE_REGION)
+    frame = np.array(screenshot)
+    return frame[:, :, :3]  # Drop alpha channel (BGRA → BGR)
+
 
 
 def main():
@@ -27,6 +35,8 @@ def main():
 
     Detector = DoorDetector()
 
+    sct = mss.mss()
+
     # cap = cv2.VideoCapture("TestVideo.MOV")
 
     with open("yolo_output.txt", "w") as file:
@@ -34,7 +44,7 @@ def main():
         frame_count = 0
         while True:
         # while cap.isOpened():
-            frame = get_frame()
+            frame = get_frame(sct)
             # success, frame = cap.read()
 
             frame = cv2.resize(frame, (840, 640))
