@@ -10,7 +10,7 @@ RECORDING_VIDEO = "recording.mp4"
 TEMP_VIDEO = "temp.mp4"
 ANNOTATION_VIDEO = "yolo_annotations.mp4"
 YOLO_OUTPUT_FILE = "yolo_output.txt"
-TRIM = 3
+TRIM = 2
 CAPTURE_REGION = {"top": 200, "left": 60, "width": 1150, "height": 800}      
 OUTPUT_SIZE = (840, 640)
 FPS = 30.0
@@ -44,6 +44,7 @@ def screen_record(sct, out):
             break
     cv2.destroyAllWindows()
 
+
 def get_video_duration(video_file):
     probe = ffmpeg.probe(video_file, v='error', select_streams='v:0', show_entries='format=duration')
     duration = float(probe['format']['duration'])
@@ -63,7 +64,6 @@ def trim_video(input_video, output_video, trim_seconds):
     start_time = trim_seconds
     end_time = duration - trim_seconds
 
-    # Extract subclip
     ffmpeg.input(input_video, ss=start_time, to=end_time).output(output_video).run()
 
     os.replace(input_video, output_video)
