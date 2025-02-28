@@ -1,13 +1,14 @@
 import cv2
 from ultralytics import YOLO
 
-WEIGHTS_PATH = "DoorDetector\Kemperv8.pt"
+WEIGHTS_PATH = "DoorDetector/Kemperv8.pt"
 
 class DoorDetector:
 
   def __init__(self):
     self.weights = WEIGHTS_PATH
     self.model = YOLO(WEIGHTS_PATH, task="detect")
+    print("Initialized YOLO")
 
   def inference(self, frame):
     output = {
