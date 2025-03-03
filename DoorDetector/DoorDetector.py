@@ -18,7 +18,7 @@ class DoorDetector:
       "annotation" : None
     }
 
-    results = self.model.track(frame, conf=0.50, persist = True, verbose=False, device=0)
+    results = self.model.track(frame, conf=0.65, persist = True, verbose=False, device=0)
 
     if results[0].boxes.id is not None:
       output["track_ids"] = results[0].boxes.id.int().cpu().tolist()
