@@ -1,6 +1,7 @@
 # aura_proj
 AURA | Autonomous Unified Routing and Analysis
 
+# SLAM
 ## Dataset Creation
 ### Dependencies
 #### Pillow
@@ -20,3 +21,45 @@ The trajectory txt file that ORB-SLAM3 outputs needs to be adjusted such that th
 ## Visualize
 After updating the trajectory file, it can be visualized alongside the detection file that YOLO outputs. Useage for the visualizer is as follows.
 ```./visualize.py <trajectory.txt> <yolo.txt>```
+
+
+
+# AURA.py - YOLO
+`AURA.py` is a script that screen records the video from the Duckiebot DTS GUI, saves the recorded video as `recording.mp4`, then runs YOLO to detect doors and saves an annotated video as `yolo_annotations.mp4` an saves the IDs of each door and its bounding boxes detected in each from in `yolo_output.txt`. `recording.mp4` can then be used for the SLAM algorithm, and `yolo_output.txt` can be used to visualize the doors on the slam generated outputs.
+
+To Run:
+```
+python3 AURA.py
+```
+
+## Requirements
+```
+pip install -r requirements.txt
+```
+
+When installing [PyTorch](https://link-url-here.org) make sure to make sure you install it with CUDA so YOLO can run.
+
+
+## YOLO
+`AURA.py` utilizes YOLOv8 to run image detection and detect doors on our video. This is done using the Ultralytics python package.
+
+### Training
+The dataset we used consists of images of walls and doors from Kemper Hall.
+- Link to Dataset: [KemperDataset](https://drive.google.com/drive/folders/1596j4mNN_Z476sYonWvuGMJGITzvpEpl?usp=sharing).
+
+- This dataset was labelled using [cvat](https://www.cvat.ai/).
+- This dataset was created using [roboflow](https://app.roboflow.com/).
+
+Ultralytics utilizes a .yaml file to specify the locations of the dataset and what augmentations to use. The augmentations we decided to use were:
+- scale
+- translate
+- perspective
+- fliplr
+- mixup
+
+To train YOLO run the `DoorDetector/TrainDetector.ipynb` file.
+
+#### Training Results
+![](./TrainingStats/confusion_matrix.png)
+![](./TrainingStats/results.png)
+
