@@ -1,6 +1,10 @@
 # aura_proj
 AURA | Autonomous Unified Routing and Analysis
 
+
+https://github.com/user-attachments/assets/7f360d72-43e6-4dbd-950c-81bd507abf28
+
+
 # SLAM
 ## Dataset Creation
 ### Dependencies
