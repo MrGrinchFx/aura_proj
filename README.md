@@ -6,6 +6,9 @@ https://github.com/user-attachments/assets/7f360d72-43e6-4dbd-950c-81bd507abf28
 
 
 # SLAM
+## Environment Setup
+Follow the instructions linked in this github repository **https://github.com/jahaniam/orbslam3_docker**
+Once the container is running, pull the ORB-SLAM3 folder into the container
 ## Dataset Creation
 ### Dependencies
 #### Pillow
