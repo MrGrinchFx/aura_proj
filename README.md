@@ -6,9 +6,11 @@ https://github.com/user-attachments/assets/7f360d72-43e6-4dbd-950c-81bd507abf28
 
 
 # SLAM
-## Environment Setup
+## Environment Setup and Running
 Follow the instructions linked in this github repository **https://github.com/jahaniam/orbslam3_docker**
 Once the container is running, pull the ORB-SLAM3 folder into the container
+In order to get the dataset into the container, run ```docker cp .\Custom\ <container_id>:/Datasets/EuRoC```
+Then, to run SLAM on the dataset, cd into ORB_SLAM3/Examples and run ```bash euroc_examples.sh```
 ## Dataset Creation
 ### Dependencies
 #### Pillow
