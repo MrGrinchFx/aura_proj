@@ -14,6 +14,8 @@ Once the container is running, pull the ORB-SLAM3 folder into the container.
 In order to get the dataset into the container, run ```docker cp .\Custom\ <container_id>:/Datasets/EuRoC```
 
 Then, to run SLAM on the dataset, cd into ORB_SLAM3/Examples and run ```bash euroc_examples.sh```
+
+The output trajectory file will be in /ORB_SLAM3/Examples with the name f_dataset-Custom.txt
 ## Dataset Creation
 ### Dependencies
 #### Pillow
